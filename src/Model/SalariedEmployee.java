@@ -2,7 +2,7 @@ package Model;
 
 import Utils.Helper;
 
-public class SalariedEmployee extends StaffMember{
+public class SalariedEmployee extends StaffMember {
     private double salary;
     private double bonus;
 
@@ -11,21 +11,23 @@ public class SalariedEmployee extends StaffMember{
 
     public SalariedEmployee(String name, String address, double salary, double bonus) {
         super(name, address);
-        this.salary =salary;
-        this.bonus =bonus;
+        this.salary = salary;
+        this.bonus = bonus;
     }
 
     @Override
     public double pay() {
-        return salary+bonus;
+        return salary + bonus;
     }
+
     @Override
     public StaffMember addStaff() {
         super.addStaff();
-        salary = Double.parseDouble(Helper.getUserInput("Enter salary: ","Invalid salary input","^(0|[1-9]\\d*)(\\.\\d+)?$"));
-        bonus= Double.parseDouble(Helper.getUserInput("Enter bonus: ","Invalid salary input","^(0|[1-9]\\d*)(\\.\\d+)?$"));
+        salary = Double.parseDouble(Helper.getUserInput("Enter salary: ", "Invalid salary input", "^(0|[1-9]\\d*)(\\.\\d+)?$"));
+        bonus = Double.parseDouble(Helper.getUserInput("Enter bonus: ", "Invalid salary input", "^(0|[1-9]\\d*)(\\.\\d+)?$"));
         return this;
     }
+
     @Override
     public void showUpdateMenu() {
         Helper.printSingleEmployee(this);
@@ -35,12 +37,12 @@ public class SalariedEmployee extends StaffMember{
 
     @Override
     protected void handleSubclassUpdate(int option) {
-        switch (option){
+        switch (option) {
             case 3:
-                salary= Double.parseDouble(Helper.getUserInput("➡️Update Salary To:", "Invalid input", "^(0|[1-9]\\d*)(\\.\\d+)?$"));
+                salary = Double.parseDouble(Helper.getUserInput("➡️Update Salary To:", "Invalid input", "^(0|[1-9]\\d*)(\\.\\d+)?$"));
                 break;
             case 4:
-                bonus= Double.parseDouble(Helper.getUserInput("➡️Update Bonus To:", "Invalid input", "^(0|[1-9]\\d*)(\\.\\d+)?$"));
+                bonus = Double.parseDouble(Helper.getUserInput("➡️Update Bonus To:", "Invalid input", "^(0|[1-9]\\d*)(\\.\\d+)?$"));
                 break;
         }
     }
@@ -52,7 +54,7 @@ public class SalariedEmployee extends StaffMember{
 
     @Override
     public String toString() {
-       return String.format("Salary Employee\n%s\nSalary: %n\nBonus: %n \nPayment : %n",super.toString(),salary,bonus,bonus);
+        return String.format("Salary Employee\n%s\nSalary: %n\nBonus: %n \nPayment : %n", super.toString(), salary, bonus, bonus);
     }
 
     public double getSalary() {

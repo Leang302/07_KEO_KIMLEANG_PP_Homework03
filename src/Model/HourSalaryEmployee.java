@@ -5,9 +5,11 @@ import Utils.Helper;
 public class HourSalaryEmployee extends StaffMember {
     private double workHour;
     private double rate;
+
     public HourSalaryEmployee() {
     }
-    public HourSalaryEmployee(String name, String address,double workHour,double rate) {
+
+    public HourSalaryEmployee(String name, String address, double workHour, double rate) {
         super(name, address);
         this.workHour = workHour;
         this.rate = rate;
@@ -15,16 +17,17 @@ public class HourSalaryEmployee extends StaffMember {
 
     @Override
     public double pay() {
-       return workHour*rate;
+        return workHour * rate;
     }
 
     @Override
     public StaffMember addStaff() {
         super.addStaff();
-        workHour=Double.parseDouble(Helper.getUserInput("Enter work hour: ","Invalid salary input","^(0|[1-9]\\d*)(\\.\\d+)?$"));
-        rate = Double.parseDouble(Helper.getUserInput("Enter rate: ","Invalid salary input","^(0|[1-9]\\d*)(\\.\\d+)?$"));
+        workHour = Double.parseDouble(Helper.getUserInput("Enter work hour: ", "Invalid salary input", "^(0|[1-9]\\d*)(\\.\\d+)?$"));
+        rate = Double.parseDouble(Helper.getUserInput("Enter rate: ", "Invalid salary input", "^(0|[1-9]\\d*)(\\.\\d+)?$"));
         return this;
     }
+
     @Override
     public void showUpdateMenu() {
         Helper.printSingleEmployee(this);
@@ -34,12 +37,12 @@ public class HourSalaryEmployee extends StaffMember {
 
     @Override
     protected void handleSubclassUpdate(int option) {
-        switch (option){
+        switch (option) {
             case 3:
-                workHour= Double.parseDouble(Helper.getUserInput("➡️Update Work Hour To:", "Invalid input", "^(0|[1-9]\\d*)(\\.\\d+)?$"));
+                workHour = Double.parseDouble(Helper.getUserInput("➡️Update Work Hour To:", "Invalid input", "^(0|[1-9]\\d*)(\\.\\d+)?$"));
                 break;
             case 4:
-                rate= Double.parseDouble(Helper.getUserInput("➡️Update Rate To:", "Invalid input", "^(0|[1-9]\\d*)(\\.\\d+)?$"));
+                rate = Double.parseDouble(Helper.getUserInput("➡️Update Rate To:", "Invalid input", "^(0|[1-9]\\d*)(\\.\\d+)?$"));
                 break;
         }
     }
@@ -51,7 +54,7 @@ public class HourSalaryEmployee extends StaffMember {
 
     @Override
     public String toString() {
-        return String.format("Hour Employee\n%s\nHoursWorked: %n\nRate: %n \nPayment : %n", super.toString(), workHour+"", rate+"", rate+"");
+        return String.format("Hour Employee\n%s\nHoursWorked: %n\nRate: %n \nPayment : %n", super.toString(), workHour + "", rate + "", rate + "");
     }
 
     public double getWorkHour() {

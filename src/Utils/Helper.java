@@ -12,6 +12,7 @@ import org.nocrala.tools.texttablefmt.Table;
 import java.text.DecimalFormat;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.Collectors;
 
 public interface Helper {
     String RESET = "\u001b[0m";
@@ -43,7 +44,7 @@ public interface Helper {
     }
 
     //print employee table
-    static void printTable(List<StaffMember> list) {
+    static void printTable(List<StaffMember> list, int pageNum, int pageSize) {
         Table t = new Table(9, BorderStyle.UNICODE_ROUND_BOX, ShownBorders.ALL);
         List<String> headers = Arrays.asList("Type", "ID", "Name", "Address", "Salary", "Bonus", "Hour", "Rate", "Pay");
         //setting column width
@@ -53,9 +54,13 @@ public interface Helper {
         headers.forEach(s -> {
             t.addCell(BLUE + s + RESET, align);
         });
+        //filter pagination
+        List<StaffMember> paginatedList = list.stream().skip((pageNum - 1) * pageSize)  // Skip previous pages
+                .limit(pageSize)             // Limit to page size
+                .collect(Collectors.toList());
         //render all data
-        list.forEach(staffMember -> {
-            addRow(t, staffMember,9);
+        paginatedList.forEach(staffMember -> {
+            addRow(t, staffMember, 9);
         });
         System.out.println(t.render());
     }
@@ -74,7 +79,7 @@ public interface Helper {
             t.addCell(BLUE + s + RESET, align);
         });
         //render all data
-       addRow(t,staffMember,columnCount);
+        addRow(t, staffMember, columnCount);
         System.out.println(t.render());
     }
 
@@ -104,14 +109,15 @@ public interface Helper {
         };
     }
 
-    static String getType(String empType){
-            return switch (empType) {
-                case "Volunteer" -> "Volunteer";
-                case "SalariedEmployee"-> "Salaries Employee";
-                case "HourSalaryEmployee" -> "Hour Salary Employee";
-                default -> throw new IllegalStateException("Unexpected value: " + empType);
-            };
+    static String getType(String empType) {
+        return switch (empType) {
+            case "Volunteer" -> "Volunteer";
+            case "SalariedEmployee" -> "Salaries Employee";
+            case "HourSalaryEmployee" -> "Hour Salary Employee";
+            default -> throw new IllegalStateException("Unexpected value: " + empType);
+        };
     }
+
     //add row for table data
     static void addRow(Table t, StaffMember staffMember, int colCount) {
         String type = staffMember.getClass().getSimpleName();
@@ -142,16 +148,16 @@ public interface Helper {
         if (colCount == 9) {
             t.addCell(salary == 0 ? "---" : String.valueOf(df.format(salary)), align);
             t.addCell(bonus == 0 ? "---" : String.valueOf(df.format(bonus)), align);
-            t.addCell(hour == 0 ? "---" : String.valueOf(hour+" h"), align);
+            t.addCell(hour == 0 ? "---" : String.valueOf(hour + " h"), align);
             t.addCell(rate == 0 ? "---" : String.valueOf(df.format(rate)), align);
-        } else if (colCount==7&&type.equals("SalariedEmployee")) {
-            t.addCell(String.valueOf(df.format(salary)),align);
-            t.addCell(String.valueOf(df.format(bonus)),align);
-        }else if (colCount==7&&type.equals("HourSalaryEmployee")) {
-            t.addCell(String.valueOf(hour+" h"),align);
-            t.addCell(String.valueOf(df.format(rate)),align);
-        } else if (colCount==6) {
-            t.addCell(String.valueOf(df.format(salary)),align);
+        } else if (colCount == 7 && type.equals("SalariedEmployee")) {
+            t.addCell(String.valueOf(df.format(salary)), align);
+            t.addCell(String.valueOf(df.format(bonus)), align);
+        } else if (colCount == 7 && type.equals("HourSalaryEmployee")) {
+            t.addCell(String.valueOf(hour + " h"), align);
+            t.addCell(String.valueOf(df.format(rate)), align);
+        } else if (colCount == 6) {
+            t.addCell(String.valueOf(df.format(salary)), align);
         }
         t.addCell(String.valueOf(df.format(staffMember.pay())), align);
     }
@@ -171,10 +177,12 @@ public interface Helper {
     static void printErrorMsg(String msg) {
         System.out.println(RED + msg + RESET);
     }
+
     //print success msg
     static void printSuccessMsg(String msg) {
         System.out.println(GREEN + msg + RESET);
     }
+
     //for validating empty and by regex
     static boolean validateInput(String value, String regex, String validateMsg) {
         if (value.trim().isEmpty()) {

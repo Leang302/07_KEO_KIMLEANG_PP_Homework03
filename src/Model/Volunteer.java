@@ -34,9 +34,9 @@ public class Volunteer extends StaffMember {
 
     @Override
     protected void handleSubclassUpdate(int option) {
-        switch (option){
+        switch (option) {
             case 3:
-                salary= Double.parseDouble(Helper.getUserInput("➡️Change Salary To:", "Invalid input", "^(0|[1-9]\\d*)(\\.\\d+)?$"));
+                salary = Double.parseDouble(Helper.getUserInput("➡️Change Salary To:", "Invalid input", "^(0|[1-9]\\d*)(\\.\\d+)?$"));
                 break;
         }
 
