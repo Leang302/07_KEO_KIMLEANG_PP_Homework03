@@ -24,7 +24,7 @@ public class SalariedEmployee extends StaffMember {
     public StaffMember addStaff() {
         super.addStaff();
         salary = Double.parseDouble(Helper.getUserInput("Enter salary: ", "Invalid salary input", "^(0|[1-9]\\d*)(\\.\\d+)?$"));
-        bonus = Double.parseDouble(Helper.getUserInput("Enter bonus: ", "Invalid salary input", "^(0|[1-9]\\d*)(\\.\\d+)?$"));
+        bonus = Double.parseDouble(Helper.getUserInput("Enter bonus: ", "Invalid bonus input", "^(0|[1-9]\\d*)(\\.\\d+)?$"));
         return this;
     }
 

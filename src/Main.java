@@ -10,7 +10,6 @@ import java.util.concurrent.atomic.AtomicBoolean;
 public class Main {
     public static void main(String[] args) {
         List<StaffMember> allStaff = new ArrayList<>(Arrays.asList(new Volunteer("Jack", "Kandal", 800), new SalariedEmployee("Oggy", "PP", 12, 10), new HourSalaryEmployee("Bob", "PP", 12, 10), new HourSalaryEmployee("Olivia", "PP", 12, 10), new Volunteer("Johny", "TK", 1000), new SalariedEmployee("Jennie", "Siem Reap", 20, 10), new Volunteer("Norman", "LA", 800)));
-
         int size = 3;
         int pageNum = 1;
         Scanner sc = new Scanner(System.in);
@@ -83,8 +82,8 @@ public class Main {
                     int totalPage = (allStaff.size() + size - 1) / size;
                     display:
                     do {
-                        Helper.printTable(allStaff, pageNum, size);
-                        System.out.printf("\n\nPage: %s/%s\n", pageNum, totalPage);
+                        Helper.printTable(allStaff, allStaff.isEmpty() ?0:pageNum, allStaff.isEmpty() ?0:size);
+                        System.out.printf("\n\nPage: %s/%s\n", allStaff.isEmpty() ?0:pageNum, totalPage);
                         System.out.println("1. First page\t2. Next page\t3. Previous page\t4. Last Page\t5. Exit");
                         String userInput = Helper.getUserInput("➡️Choose: ", "Invalid choice!", "[1-5]");
                         switch (Integer.parseInt(userInput)) {

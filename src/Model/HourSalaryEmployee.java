@@ -23,8 +23,8 @@ public class HourSalaryEmployee extends StaffMember {
     @Override
     public StaffMember addStaff() {
         super.addStaff();
-        workHour = Double.parseDouble(Helper.getUserInput("Enter work hour: ", "Invalid salary input", "^(0|[1-9]\\d*)(\\.\\d+)?$"));
-        rate = Double.parseDouble(Helper.getUserInput("Enter rate: ", "Invalid salary input", "^(0|[1-9]\\d*)(\\.\\d+)?$"));
+        workHour = Double.parseDouble(Helper.getUserInput("Enter work hour: ", "Invalid hour input", "^(0|[1-9]\\d*)(\\.\\d+)?$"));
+        rate = Double.parseDouble(Helper.getUserInput("Enter rate: ", "Invalid rate input", "^(0|[1-9]\\d*)(\\.\\d+)?$"));
         return this;
     }
 
