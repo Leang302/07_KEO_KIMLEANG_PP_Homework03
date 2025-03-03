@@ -113,7 +113,7 @@ public class Main {
                             int inputId;
                             inputId = Integer.parseInt(Helper.getUserInput("➡️ Enter ID to Remove : ", "Invalid id format", "\\d+"));
                             Optional<StaffMember> staff = allStaff.stream().filter(staffMember -> staffMember.getId() == inputId).findFirst();
-                            staff.ifPresentOrElse(staffMember -> {
+                            staff.ifPresentOrElse(_ -> {
                                 deletedUserFound.set(true);
                                 allStaff.remove(staff.get());
                                 Helper.printSuccessMsg("User with id " + inputId + " have been removed!");
